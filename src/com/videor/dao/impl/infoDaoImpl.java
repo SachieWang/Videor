@@ -1,5 +1,7 @@
 package com.videor.dao.impl;
 
-public class infoDaoImpl {
+import com.videor.dao.inf.infoDao;
+
+public class infoDaoImpl implements infoDao{
 
 }
