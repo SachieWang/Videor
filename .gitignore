@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+#exclude folder libraries
+!/libraries/
+
 # Log file
 *.log
 
