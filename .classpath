@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="libraries/httpcore-4.4.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jdom-1.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
+	<classpathentry kind="lib" path="swing2swt.jar"/>
+	<classpathentry kind="lib" path="E:/eclipse-workspace/mysql-connector-java-8.0.13/mysql-connector-java-8.0.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

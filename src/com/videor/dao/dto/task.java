@@ -8,8 +8,8 @@ public class task {
 		return Id;
 	}
 
-	public void setTaskId(String taskId) {
-		this.Id = taskId;
+	public void setTaskId(String i) {
+		this.Id = i;
 	}
 
 	public info getTaskInfo() {

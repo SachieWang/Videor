@@ -8,24 +8,23 @@ import com.videor.dao.dto.vfile;
 import com.videor.dao.impl.taskDaoImpl;
 import com.videor.dao.impl.vfileDaoImpl;
 
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Menu;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import javax.swing.JFileChooser;
-import javax.swing.UIManager;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import swing2swt.layout.BorderLayout;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Text;
+
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.UIManager;
 
 public class MainWin {
 
 	protected Shell shell;
+	private Text text;
 
 	/**
 	 * Launch the application.
@@ -63,7 +62,7 @@ public class MainWin {
 		shell = new Shell();
 		shell.setSize(450, 300);
 		shell.setText("SWT Application");
-		shell.setLayout(new GridLayout(1, false));
+		shell.setLayout(new BorderLayout(0, 0));
 
 		Menu menu = new Menu(shell, SWT.BAR);
 		shell.setMenuBar(menu);
@@ -106,7 +105,7 @@ public class MainWin {
 					// input.close();
 					vfile vf = vfileDaoImpl.getInstance().getVfile(file);
 					task tk = taskDaoImpl.getInstance().generateTask(vf);
-					System.out.println(vf + "  " + tk);
+					System.out.println(vf.getId() + '\t' + vf.getFileName() + '\t' + vf.getFilePath());
 
 				} else
 					System.out.println("No file is selected!");
@@ -117,6 +116,12 @@ public class MainWin {
 
 		MenuItem mntmSave = new MenuItem(menu_1, SWT.NONE);
 		mntmSave.setText("Save");
+
+		List list = new List(shell, SWT.BORDER);
+		list.setLayoutData(BorderLayout.WEST);
+
+		text = new Text(shell, SWT.BORDER);
+		text.setLayoutData(BorderLayout.CENTER);
 
 	}
 

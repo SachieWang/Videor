@@ -13,11 +13,11 @@ public class taskDaoImpl implements taskDao {
 	}
 
 	@Override
-	public task generateTask(vfile f) {
+	public task generateTask(vfile vf) {
 		// TODO 自动生成的方法存根
-		task tk =new task();
-		//关联ID
-		tk.setTaskId(f.getId());
+		task tk = new task();
+		// 关联ID
+		tk.setTaskId(vf.getId());
 		tk.setTaskInfo(null);
 		return tk;
 	}

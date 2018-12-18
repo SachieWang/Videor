@@ -6,7 +6,7 @@ import com.videor.dao.dto.vfile;
 
 public interface vfileDao {
 	/**
-	 * GUI从资源管理器选取文件生成Vfile对象
+	 * GUI从资源管理器选取文件生成Vfile对象，将文件信息注册进mysql
 	 * 
 	 * @param f
 	 * @return

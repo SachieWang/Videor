@@ -2,13 +2,18 @@ package com.videor.dao.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.PutObjectRequest;
+import com.videor.dao.db.connectMysql;
 import com.videor.dao.dto.vfile;
 import com.videor.dao.inf.vfileDao;
 
 import utils.PutObjectProgressListener;
+import utils.md5Util;
 
 public class vfileDaoImpl implements vfileDao {
 
@@ -25,10 +30,46 @@ public class vfileDaoImpl implements vfileDao {
 
 	@Override
 	public vfile getVfile(File f) {
+
+		// config the DB conn
+		Connection conn = connectMysql.getNewConn();
+		PreparedStatement pst = null;
+		StringBuffer buffer = new StringBuffer("INSERT INTO vfile(Id,vfileName,vfilePath) VALUES (?,?,?)");
+
+		// init the vfile
 		vfile tmp = new vfile();
 		tmp.setFileName(f.getName());
 		tmp.setFilePath(f.getAbsolutePath());
+
+		// generate the file's md5 and get the firsr 8 charactors
+		try {
+			String md5Hashcode32 = md5Util.md5HashCode32(tmp.getFilePath());
+			tmp.setId(md5Hashcode32.substring(0, 7));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		// regist the vfile infomation into DB
+		try {
+			pst = conn.prepareStatement(buffer.toString());
+			pst.setString(1, tmp.getId());
+			pst.setString(2, tmp.getFileName());
+			pst.setString(3, tmp.getFilePath());
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// invoke the upload function, put vfiles into Aliyun-OSS
 		uploadVfile(tmp);
+
 		return tmp;
 	}
 
