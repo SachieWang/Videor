@@ -2,16 +2,16 @@ package com.videor.dao.dto;
 
 public class vfile {
 
-	private String Id;
+	private String hashId;
 	private String vfileName;
 	private String vfilePath;
 
 	public String getId() {
-		return Id;
+		return hashId;
 	}
 
 	public void setId(String id) {
-		this.Id = id;
+		this.hashId = id;
 	}
 
 	public String getFileName() {

@@ -1,5 +1,12 @@
 package com.videor.dao.inf;
 
-public interface infoDao {
+import com.videor.dao.dto.task;
 
+public interface infoDao {
+	/**
+	 * 生成任务详情
+	 * 
+	 * @param tk
+	 */
+	public void createTaskInfo(task tk);
 }

@@ -1,24 +1,49 @@
 package com.videor.dao.dto;
 
-import java.io.File;
-
 public class info {
-	private String Id;
-	private File logfile;
+	private String birth;
+	private String taskId;
+	private String taskPS = "Default Messeges\n\n";
+	private String taskFiles;
+	private String taskInfo;
 
-	public String getId() {
-		return Id;
+	public String getBirth() {
+		return birth;
 	}
 
-	public void setId(String id) {
-		Id = id;
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 
-	public File getLogfile() {
-		return logfile;
+	public String getTaskId() {
+		return taskId;
 	}
 
-	public void setLogfile(File logfile) {
-		this.logfile = logfile;
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+
+	public String getTaskPS() {
+		return taskPS;
+	}
+
+	public void setTaskPS(String taskPS) {
+		this.taskPS = taskPS;
+	}
+
+	public String getTaskFiles() {
+		return taskFiles;
+	}
+
+	public void setTaskFiles(String taskFiles) {
+		this.taskFiles = taskFiles;
+	}
+
+	public String getTaskInfo() {
+		return taskInfo;
+	}
+
+	public void setTaskInfo(String taskInfo) {
+		this.taskInfo = taskInfo;
 	}
 }

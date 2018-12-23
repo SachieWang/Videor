@@ -1,24 +1,32 @@
 package com.videor.dao.inf;
 
-import com.videor.dao.dto.info;
+import java.util.ArrayList;
+
 import com.videor.dao.dto.task;
 import com.videor.dao.dto.vfile;
 
 public interface taskDao {
 	/**
-	 * 关联文件与任务
+	 * 生成容纳了文件列表的初始任务对象
 	 * 
 	 * @param f
 	 * @return
 	 */
-	public task generateTask(vfile f);
+	public task generateTask(ArrayList<vfile> f);
 
 	/**
-	 * 查询任务信息及状态
+	 * 确认任务，并生成任务Id。向数据库注册完整任务信息
+	 * 
+	 * @param t
+	 */
+	public void confirmTask(task t);
+
+	/**
+	 * 查询任务全部列表及进度
 	 * 
 	 * @param tk
 	 * @return
 	 */
-	public info queryTask(task tk);
+	public ArrayList<String> queryTask();
 
 }
