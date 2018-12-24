@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
@@ -30,6 +31,8 @@ import org.eclipse.swt.widgets.TableItem;
 public class MainWin {
 
 	protected Shell shell;
+
+	private String desTaskId;
 
 	/**
 	 * Launch the application.
@@ -66,20 +69,21 @@ public class MainWin {
 	protected void createContents() {
 		shell = new Shell();
 		shell.setSize(620, 420);
-		shell.setText("SWT Application");
-		shell.setLayout(new GridLayout(5, false));
+		shell.setText("\u89C6\u9891\u538B\u5236\u5DE5\u5177");
+		shell.setLayout(new GridLayout(6, false));
 
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		GridData gd_btnNewButton = new GridData(SWT.LEFT, SWT.FILL, false, false, 1, 1);
-		gd_btnNewButton.widthHint = 50;
+		gd_btnNewButton.widthHint = 75;
 		btnNewButton.setLayoutData(gd_btnNewButton);
-		btnNewButton.setText("start");
+		btnNewButton.setText("\u65B0\u5EFA/\u5F00\u59CB");
 
 		Button btnNewButton_1 = new Button(shell, SWT.NONE);
+		btnNewButton_1.setEnabled(false);
 		GridData gd_btnNewButton_1 = new GridData(SWT.RIGHT, SWT.FILL, false, false, 1, 1);
 		gd_btnNewButton_1.widthHint = 50;
 		btnNewButton_1.setLayoutData(gd_btnNewButton_1);
-		btnNewButton_1.setText("abort");
+		btnNewButton_1.setText("\u653E\u5F03");
 
 		Label label_1 = new Label(shell, SWT.SEPARATOR | SWT.VERTICAL);
 		label_1.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false, 1, 5));
@@ -90,11 +94,17 @@ public class MainWin {
 		lblNewLabel.setLayoutData(gd_lblNewLabel);
 		lblNewLabel.setText("information");
 
+		Button btnNewButton_3 = new Button(shell, SWT.NONE);
+		GridData gd_btnNewButton_3 = new GridData(SWT.RIGHT, SWT.FILL, false, false, 1, 1);
+		gd_btnNewButton_3.widthHint = 70;
+		btnNewButton_3.setLayoutData(gd_btnNewButton_3);
+		btnNewButton_3.setText("\u4E0B\u8F7D");
+
 		Button btnNewButton_2 = new Button(shell, SWT.NONE);
 		GridData gd_btnNewButton_2 = new GridData(SWT.RIGHT, SWT.FILL, false, false, 1, 1);
 		gd_btnNewButton_2.widthHint = 70;
 		btnNewButton_2.setLayoutData(gd_btnNewButton_2);
-		btnNewButton_2.setText("refresh");
+		btnNewButton_2.setText("\u5237\u65B0");
 
 		Table table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 4));
@@ -108,38 +118,51 @@ public class MainWin {
 		TableColumn tblclmnStatus = new TableColumn(table, SWT.NONE);
 		tblclmnStatus.setWidth(100);
 		tblclmnStatus.setText("status");
+		// TODO 定期查询任务状态
+		// shell.getDisplay().asyncExec(new Runnable() {
+		// @Override
+		// public void run() {
+		//
+		// }
+		// });
 		ArrayList<String> tasks = taskDaoImpl.getInstance().queryTask();
-		for (String string : tasks) {
-			TableItem tableItem = new TableItem(table, SWT.NONE);
-			tableItem.setText(string);
+		if (!tasks.isEmpty()) {
+			for (String string : tasks) {
+				TableItem tableItem = new TableItem(table, SWT.NONE);
+				tableItem.setText(string);
+			}
 		}
 
 		Label label_2 = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
-		label_2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+		label_2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
 
 		Text text = new Text(shell, SWT.BORDER | SWT.READ_ONLY | SWT.V_SCROLL);
-		GridData gd_text = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
+		GridData gd_text = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
 		gd_text.widthHint = 373;
 		text.setLayoutData(gd_text);
 
 		Label label = new Label(shell, SWT.SEPARATOR | SWT.HORIZONTAL);
-		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
 
 		ProgressBar progressBar = new ProgressBar(shell, SWT.NONE);
-		progressBar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+		progressBar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1));
 		progressBar.setMinimum(0);
 		progressBar.setMaximum(100);
 
 		FileDialog filedialog = new FileDialog(shell, SWT.MULTI);
 		filedialog.setText("选择文件");
 
+		DirectoryDialog directoryDialog = new DirectoryDialog(shell);
+		directoryDialog.setText("选择目录");
+		directoryDialog.setMessage("选择您要保存到的路径");
+
 		MessageBox messageBox = new MessageBox(shell, SWT.ICON_QUESTION | SWT.YES | SWT.NO);
 		messageBox.setMessage("确认文件");
-		messageBox.setMessage("您已选择如下文件,确认无误？：\n");
 
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				progressBar.setSelection(0);
 				if (filedialog.open() != null) {
 					String[] paths = filedialog.getFileNames();
 					String[] names = paths.clone();
@@ -148,31 +171,26 @@ public class MainWin {
 						paths[i] = path.concat("\\").concat(paths[i]);
 						System.out.println(names[i] + '\t' + paths[i]);
 					}
-
+					messageBox.setMessage("您已选择如下文件,确认无误？：\n");
 					for (String string : names) {
 						messageBox.setMessage(messageBox.getMessage().concat(string + "\n"));
 					}
 					int choice = messageBox.open();
 					if (choice == SWT.YES) {
-						// TODO 打开ps文本框
-						// System.out.println(ps.pstext(shell));
-						// String result = ps.pstext(shell);
-						// System.out.println(result);
 
-						// TODO PS文本框与守护线程
-						// Thread th = Thread.currentThread();
+						//// TODO 打开ps文本框
+						// ps.pstext(shell);
+						// System.out.println("main thread:" + ps.getPs());
 
 						ArrayList<vfile> vf = vfileDaoImpl.getInstance().getVfile(names, paths);
 						task tk = taskDaoImpl.getInstance().generateTask(vf);
+						taskDaoImpl.getInstance().confirmTask(tk);
 
-						Boolean okOrNot = vfileDaoImpl.getInstance().uploadVfile(tk);
-						// 上传成功则确认任务，注册数据，打印出任务id
-						if (okOrNot) {
-							taskDaoImpl.getInstance().confirmTask(tk);
-							TableItem tableItem = new TableItem(table, SWT.NONE);
-							tableItem.setText(tk.getTaskId());
-							System.out.println(tk.getTaskId());
-						}
+						// 派生线程处理带进度条的文件上传
+						childThread c = new childThread(progressBar, shell, tk, table);
+						c.run();
+						// 此处原任务为子线程内任务
+
 					} else {
 						System.out.println("放弃任务");
 						return;
@@ -187,8 +205,10 @@ public class MainWin {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				TableItem t = table.getItem(table.getSelectionIndex());
-				System.out.println(t.getText(0));
+				desTaskId = t.getText(0);
+				// System.out.println(t.getText(0));
 				text.setText(query.queryInfo(t.getText(0)));
+				t.setText(1, query.queryProgress(desTaskId));
 			}
 		});
 
@@ -196,6 +216,21 @@ public class MainWin {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				text.setText("");
+			}
+		});
+
+		btnNewButton_3.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+
+				if (desTaskId != null) {
+					String[] filenames = query.queryFiles(desTaskId);
+					String path = directoryDialog.open();
+					if (path != null)
+						vfileDaoImpl.getInstance().downloadVfile(desTaskId, filenames, path);
+					else
+						System.out.println("放弃下载");
+				}
 			}
 		});
 	}
