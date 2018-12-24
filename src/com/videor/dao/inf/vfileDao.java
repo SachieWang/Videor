@@ -2,6 +2,8 @@ package com.videor.dao.inf;
 
 import java.util.ArrayList;
 
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.ProgressBar;
 import com.videor.dao.dto.task;
 import com.videor.dao.dto.vfile;
 
@@ -16,12 +18,27 @@ public interface vfileDao {
 	public ArrayList<vfile> getVfile(String[] name, String[] path);
 
 	/**
-	 * 上传目标文件至阿里云OSS
+	 * 生成上传队列
 	 * 
 	 * @param f
 	 */
-	public Boolean uploadVfile(task t);
+	public Boolean uploadVfile(task t, ProgressBar bar, Composite parent);
 
-	Boolean upload(vfile f);
+	/**
+	 * 上传目标文件至阿里云OSS
+	 * 
+	 * @param f
+	 * @param ID
+	 * @return
+	 */
+	// public Boolean upload(vfile f, String ID);
+
+	/**
+	 * 下载文件
+	 * 
+	 * @param t
+	 * @return
+	 */
+	public Boolean downloadVfile(String taskID, String[] filenames, String path);
 
 }
