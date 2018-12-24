@@ -15,7 +15,7 @@ public interface taskDao {
 	public task generateTask(ArrayList<vfile> f);
 
 	/**
-	 * 确认任务，并生成任务Id。向数据库注册完整任务信息
+	 * 确认任务，并生成任务Id。
 	 * 
 	 * @param t
 	 */
@@ -28,5 +28,14 @@ public interface taskDao {
 	 * @return
 	 */
 	public ArrayList<String> queryTask();
+
+	/**
+	 * 向数据库注册完整任务信息
+	 * 
+	 * @param t
+	 */
+	public void registeTask(task t);
+
+	public void invokeTask(task t);
 
 }

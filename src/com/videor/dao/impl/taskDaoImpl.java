@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.videor.apigateway.EncodeTask_ApiGateway;
 import com.videor.dao.db.connectMysql;
 import com.videor.dao.dto.task;
 import com.videor.dao.dto.vfile;
@@ -42,18 +43,53 @@ public class taskDaoImpl implements taskDao {
 		sTaskId = md5Util.transformMD5(sTaskId);
 		t.setTaskId(sTaskId.substring(0, 7));
 		infoDaoImpl.getInstance().createTaskInfo(t);
+
+	}
+
+	@Override
+	public ArrayList<String> queryTask() {
+		Connection conn = connectMysql.getNewConn();
+		PreparedStatement pst = null;
+		ResultSet result = null;
+		ArrayList<String> tasks = new ArrayList<String>();
+		StringBuffer buffer = new StringBuffer("SELECT Id FROM task WHERE 1");
+		// regist the vfile infomation into DB
+		try {
+			pst = conn.prepareStatement(buffer.toString());
+			result = pst.executeQuery();
+			while (result.next()) {
+				tasks.add(result.getString(1));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pst.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return tasks;
+	}
+
+	@Override
+	public void registeTask(task t) {
+		ArrayList<vfile> tmp = t.getFiles();
 		// ×¢²áÎÄ¼þ
 		// config the DB conn
 		Connection conn = connectMysql.getNewConn();
 		PreparedStatement pst = null;
-		StringBuffer buffer = new StringBuffer("INSERT INTO vfile(Id,vfileName,vfilePath) VALUES (?,?,?)");
+		StringBuffer buffer = new StringBuffer("INSERT INTO vfile(Id,taskId,vfileName,vfilePath) VALUES (?,?,?,?)");
 		// regist the vfile infomation into DB
 		try {
 			for (vfile vfile : tmp) {
 				pst = conn.prepareStatement(buffer.toString());
 				pst.setString(1, vfile.getId());
-				pst.setString(2, vfile.getFileName());
-				pst.setString(3, vfile.getFilePath());
+				pst.setString(2, t.getTaskId());
+				pst.setString(3, vfile.getFileName());
+				pst.setString(4, vfile.getFilePath());
 				pst.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -102,31 +138,8 @@ public class taskDaoImpl implements taskDao {
 	}
 
 	@Override
-	public ArrayList<String> queryTask() {
-		Connection conn = connectMysql.getNewConn();
-		PreparedStatement pst = null;
-		ResultSet result = null;
-		ArrayList<String> tasks = new ArrayList<String>();
-		StringBuffer buffer = new StringBuffer("SELECT Id FROM task WHERE 1");
-		// regist the vfile infomation into DB
-		try {
-			pst = conn.prepareStatement(buffer.toString());
-			result = pst.executeQuery();
-			while (result.next()) {
-				tasks.add(result.getString(1));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				pst.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return tasks;
+	public void invokeTask(task t) {
+		EncodeTask_ApiGateway.CreateEncodeHttpsTest(t);
 	}
 
 }

@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 
 public class connectMysql {
 
-	private static final String DBDRIVER = "com.mysql.cj.jdbc.Driver";
+	// //private static final String DBDRIVER = "com.mysql.cj.jdbc.Driver";
 	// TODO …æIP°¢ø‚°¢’À∫≈°¢√‹¬Î
-	private static String DBURL = "jdbc:mysql://ip:3306/db";
+	private static String DBURL = "jdbc:mysql://ip:3306/dbname";
 	private static final String DBUSER = "DBUSER";
 	private static final String DBPASSWORD = "DBPASSWORD";
 	private static Connection conn = null;
@@ -35,6 +35,7 @@ public class connectMysql {
 			}
 			// Class.forName(DBDRIVER);
 			conn = DriverManager.getConnection(DBURL, DBUSER, DBPASSWORD);
+			// conn = DriverManager.getConnection(url);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -44,17 +45,17 @@ public class connectMysql {
 		return conn;
 	}
 
-	public Connection getNewConnection() {
-		try {
-			// throw new Exception(DBURL);
-			Class.forName(DBDRIVER);
-			connectMysql.conn = DriverManager.getConnection(DBURL, DBUSER, DBPASSWORD);
-		} catch (Exception e) {
-
-		}
-
-		return connectMysql.conn;
-	}
+	// public Connection getNewConnection() {
+	// try {
+	// // throw new Exception(DBURL);
+	// Class.forName(DBDRIVER);
+	// connectMysql.conn = DriverManager.getConnection(DBURL, DBUSER, DBPASSWORD);
+	// } catch (Exception e) {
+	//
+	// }
+	//
+	// return connectMysql.conn;
+	// }
 
 	public void close() throws Exception {
 		if (connectMysql.conn != null) {
