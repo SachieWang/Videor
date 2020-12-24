@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class connectMysql {
 
 	// //private static final String DBDRIVER = "com.mysql.cj.jdbc.Driver";
-	// TODO É¾IP¡¢¿â¡¢ÕËºÅ¡¢ÃÜÂë
+	// TODO åˆ IPã€åº“ã€è´¦å·ã€å¯†ç 
 	private static String DBURL = "jdbc:mysql://ip:3306/dbname";
 	private static final String DBUSER = "DBUSER";
 	private static final String DBPASSWORD = "DBPASSWORD";

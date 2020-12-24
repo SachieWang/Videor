@@ -92,19 +92,19 @@ public class PutObjectProgressListener implements ProgressListener {
 	public static Boolean upload(vfile f, String ID, ProgressBar bar, Composite parent2) {
 
 		boolean flag = true;
-		// EndpointÒÔº¼ÖİÎªÀı£¬ÆäËüRegionÇë°´Êµ¼ÊÇé¿öÌîĞ´¡£
+		// Endpointä»¥æ­å·ä¸ºä¾‹ï¼Œå…¶å®ƒRegionè¯·æŒ‰å®é™…æƒ…å†µå¡«å†™ã€‚
 		String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-		// °¢ÀïÔÆÖ÷ÕËºÅAccessKeyÓµÓĞËùÓĞAPIµÄ·ÃÎÊÈ¨ÏŞ£¬·çÏÕºÜ¸ß¡£Ç¿ÁÒ½¨ÒéÄú´´½¨²¢Ê¹ÓÃRAMÕËºÅ½øĞĞAPI·ÃÎÊ»òÈÕ³£ÔËÎ¬£¬ÇëµÇÂ¼
-		// https://ram.console.aliyun.com ´´½¨RAMÕËºÅ¡£
+		// é˜¿é‡Œäº‘ä¸»è´¦å·AccessKeyæ‹¥æœ‰æ‰€æœ‰APIçš„è®¿é—®æƒé™ï¼Œé£é™©å¾ˆé«˜ã€‚å¼ºçƒˆå»ºè®®æ‚¨åˆ›å»ºå¹¶ä½¿ç”¨RAMè´¦å·è¿›è¡ŒAPIè®¿é—®æˆ–æ—¥å¸¸è¿ç»´ï¼Œè¯·ç™»å½•
+		// https://ram.console.aliyun.com åˆ›å»ºRAMè´¦å·ã€‚
 
-		// TODO É¾³ıossÕËºÅÃÜÂë
+		// TODO åˆ é™¤ossè´¦å·å¯†ç 
 		String accessKeyId = "accessKeyId";
 		String accessKeySecret = "accessKeySecret";
 		String bucketName = "bucketName";
 
 		String[] nameConstruct = f.getFileName().split("\\.").clone();
 		String objectName = "in/" + nameConstruct[0] + "_" + ID + "." + nameConstruct[1];
-		// ´´½¨OSSClientÊµÀı¡£
+		// åˆ›å»ºOSSClientå®ä¾‹ã€‚
 		OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 		File file = new File(f.getFilePath());
 		long totalBytes = file.length();
@@ -115,7 +115,7 @@ public class PutObjectProgressListener implements ProgressListener {
 		});
 
 		try {
-			// ´ø½ø¶ÈÌõµÄÉÏ´«¡£
+			// å¸¦è¿›åº¦æ¡çš„ä¸Šä¼ ã€‚
 			ossClient.putObject(new PutObjectRequest(bucketName, objectName, new FileInputStream(f.getFilePath()))
 					.<PutObjectRequest>withProgressListener(new PutObjectProgressListener(totalBytes, bar, parent2)));
 		} catch (Exception e) {
@@ -123,7 +123,7 @@ public class PutObjectProgressListener implements ProgressListener {
 			flag = false;
 		}
 
-		// ¹Ø±ÕOSSClient¡£
+		// å…³é—­OSSClientã€‚
 		ossClient.shutdown();
 		return flag;
 	}

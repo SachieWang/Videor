@@ -71,12 +71,12 @@ public class GetObjectProgressListener implements ProgressListener {
 
 	public static Boolean download(String name, String path) {
 		boolean flag = true;
-		// EndpointÒÔº¼ÖİÎªÀı£¬ÆäËüRegionÇë°´Êµ¼ÊÇé¿öÌîĞ´¡£
+		// Endpointä»¥æ­å·ä¸ºä¾‹ï¼Œå…¶å®ƒRegionè¯·æŒ‰å®é™…æƒ…å†µå¡«å†™ã€‚
 		String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-		// °¢ÀïÔÆÖ÷ÕËºÅAccessKeyÓµÓĞËùÓĞAPIµÄ·ÃÎÊÈ¨ÏŞ£¬·çÏÕºÜ¸ß¡£Ç¿ÁÒ½¨ÒéÄú´´½¨²¢Ê¹ÓÃRAMÕËºÅ½øĞĞAPI·ÃÎÊ»òÈÕ³£ÔËÎ¬£¬ÇëµÇÂ¼
-		// https://ram.console.aliyun.com ´´½¨RAMÕËºÅ¡£
+		// é˜¿é‡Œäº‘ä¸»è´¦å·AccessKeyæ‹¥æœ‰æ‰€æœ‰APIçš„è®¿é—®æƒé™ï¼Œé£é™©å¾ˆé«˜ã€‚å¼ºçƒˆå»ºè®®æ‚¨åˆ›å»ºå¹¶ä½¿ç”¨RAMè´¦å·è¿›è¡ŒAPIè®¿é—®æˆ–æ—¥å¸¸è¿ç»´ï¼Œè¯·ç™»å½•
+		// https://ram.console.aliyun.com åˆ›å»ºRAMè´¦å·ã€‚
 
-		// TODO É¾³ıossÕËºÅÃÜÂë
+		// TODO åˆ é™¤ossè´¦å·å¯†ç 
 		String accessKeyId = "accessKeyId";
 		String accessKeySecret = "accessKeySecret";
 		String bucketName = "bucketName";
@@ -84,14 +84,14 @@ public class GetObjectProgressListener implements ProgressListener {
 		String objectName = name;
 		OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 		try {
-			// ´ø½ø¶ÈÌõµÄÏÂÔØ¡£
+			// å¸¦è¿›åº¦æ¡çš„ä¸‹è½½ã€‚
 			ossClient.getObject(new GetObjectRequest(bucketName, objectName)
 					.<GetObjectRequest>withProgressListener(new GetObjectProgressListener()), new File(path));
 		} catch (Exception e) {
 			e.printStackTrace();
 			flag = false;
 		}
-		// ¹Ø±ÕOSSClient¡£
+		// å…³é—­OSSClientã€‚
 		ossClient.shutdown();
 		return flag;
 	}

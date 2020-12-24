@@ -118,14 +118,20 @@ public class MainWin {
 		TableColumn tblclmnStatus = new TableColumn(table, SWT.NONE);
 		tblclmnStatus.setWidth(100);
 		tblclmnStatus.setText("status");
-		// TODO ¶¨ÆÚ²éÑ¯ÈÎÎñ×´Ì¬
+		// TODO å®šæœŸæŸ¥è¯¢ä»»åŠ¡çŠ¶æ€
 		// shell.getDisplay().asyncExec(new Runnable() {
 		// @Override
 		// public void run() {
 		//
 		// }
 		// });
-		ArrayList<String> tasks = taskDaoImpl.getInstance().queryTask();
+		ArrayList<String> tasks = new ArrayList<String>();
+		try {
+			tasks = taskDaoImpl.getInstance().queryTask();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		if (!tasks.isEmpty()) {
 			for (String string : tasks) {
 				TableItem tableItem = new TableItem(table, SWT.NONE);
@@ -150,14 +156,14 @@ public class MainWin {
 		progressBar.setMaximum(100);
 
 		FileDialog filedialog = new FileDialog(shell, SWT.MULTI);
-		filedialog.setText("Ñ¡ÔñÎÄ¼ş");
+		filedialog.setText("é€‰æ‹©æ–‡ä»¶");
 
 		DirectoryDialog directoryDialog = new DirectoryDialog(shell);
-		directoryDialog.setText("Ñ¡ÔñÄ¿Â¼");
-		directoryDialog.setMessage("Ñ¡ÔñÄúÒª±£´æµ½µÄÂ·¾¶");
+		directoryDialog.setText("é€‰æ‹©ç›®å½•");
+		directoryDialog.setMessage("é€‰æ‹©æ‚¨è¦ä¿å­˜åˆ°çš„è·¯å¾„");
 
 		MessageBox messageBox = new MessageBox(shell, SWT.ICON_QUESTION | SWT.YES | SWT.NO);
-		messageBox.setMessage("È·ÈÏÎÄ¼ş");
+		messageBox.setMessage("ç¡®è®¤æ–‡ä»¶");
 
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -171,14 +177,14 @@ public class MainWin {
 						paths[i] = path.concat("\\").concat(paths[i]);
 						System.out.println(names[i] + '\t' + paths[i]);
 					}
-					messageBox.setMessage("ÄúÒÑÑ¡ÔñÈçÏÂÎÄ¼ş,È·ÈÏÎŞÎó£¿£º\n");
+					messageBox.setMessage("æ‚¨å·²é€‰æ‹©å¦‚ä¸‹æ–‡ä»¶,ç¡®è®¤æ— è¯¯ï¼Ÿï¼š\n");
 					for (String string : names) {
 						messageBox.setMessage(messageBox.getMessage().concat(string + "\n"));
 					}
 					int choice = messageBox.open();
 					if (choice == SWT.YES) {
 
-						//// TODO ´ò¿ªpsÎÄ±¾¿ò
+						//// TODO æ‰“å¼€psæ–‡æœ¬æ¡†
 						// ps.pstext(shell);
 						// System.out.println("main thread:" + ps.getPs());
 
@@ -186,17 +192,17 @@ public class MainWin {
 						task tk = taskDaoImpl.getInstance().generateTask(vf);
 						taskDaoImpl.getInstance().confirmTask(tk);
 
-						// ÅÉÉúÏß³Ì´¦Àí´ø½ø¶ÈÌõµÄÎÄ¼şÉÏ´«
+						// æ´¾ç”Ÿçº¿ç¨‹å¤„ç†å¸¦è¿›åº¦æ¡çš„æ–‡ä»¶ä¸Šä¼ 
 						childThread c = new childThread(progressBar, shell, tk, table);
 						c.run();
-						// ´Ë´¦Ô­ÈÎÎñÎª×ÓÏß³ÌÄÚÈÎÎñ
+						// æ­¤å¤„åŸä»»åŠ¡ä¸ºå­çº¿ç¨‹å†…ä»»åŠ¡
 
 					} else {
-						System.out.println("·ÅÆúÈÎÎñ");
+						System.out.println("æ”¾å¼ƒä»»åŠ¡");
 						return;
 					}
 				} else {
-					System.out.println("·ÅÆúÑ¡ÔñÎÄ¼ş");
+					System.out.println("æ”¾å¼ƒé€‰æ‹©æ–‡ä»¶");
 				}
 			}
 		});
@@ -229,7 +235,7 @@ public class MainWin {
 					if (path != null)
 						vfileDaoImpl.getInstance().downloadVfile(desTaskId, filenames, path);
 					else
-						System.out.println("·ÅÆúÏÂÔØ");
+						System.out.println("æ”¾å¼ƒä¸‹è½½");
 				}
 			}
 		});

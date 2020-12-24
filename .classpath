@@ -6,15 +6,15 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="libraries/aliyun-sdk-oss-2.8.3.jar"/>
-	<classpathentry kind="lib" path="libraries/commons-codec-1.9.jar"/>
-	<classpathentry kind="lib" path="libraries/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="libraries/hamcrest-core-1.1.jar"/>
-	<classpathentry kind="lib" path="libraries/httpclient-4.4.1.jar"/>
-	<classpathentry kind="lib" path="libraries/httpcore-4.4.1.jar"/>
-	<classpathentry kind="lib" path="libraries/jdom-1.1.jar"/>
-	<classpathentry kind="lib" path="libraries/sdk-core-java-1.1.0.jar"/>
-	<classpathentry kind="lib" path="libraries/swt.jar"/>
-	<classpathentry kind="lib" path="libraries/swing2swt.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/aliyun-sdk-oss-2.8.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/commons-codec-1.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/commons-logging-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/hamcrest-core-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/httpclient-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/httpcore-4.4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/jdom-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/sdk-core-java-1.1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/swt.jar"/>
+	<classpathentry exported="true" kind="lib" path="libraries/swing2swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
