@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="libraries/aliyun-sdk-oss-2.8.3.jar"/>
 	<classpathentry kind="lib" path="libraries/commons-codec-1.9.jar"/>
 	<classpathentry kind="lib" path="libraries/commons-logging-1.2.jar"/>
@@ -9,9 +13,8 @@
 	<classpathentry kind="lib" path="libraries/httpclient-4.4.1.jar"/>
 	<classpathentry kind="lib" path="libraries/httpcore-4.4.1.jar"/>
 	<classpathentry kind="lib" path="libraries/jdom-1.1.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse-workspace/Videor/libraries/sdk-core-java-1.1.0.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.swt"/>
-	<classpathentry kind="lib" path="swing2swt.jar"/>
-	<classpathentry kind="lib" path="E:/eclipse-workspace/mysql-connector-java-8.0.13/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="libraries/sdk-core-java-1.1.0.jar"/>
+	<classpathentry kind="lib" path="libraries/swt.jar"/>
+	<classpathentry kind="lib" path="libraries/swing2swt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
